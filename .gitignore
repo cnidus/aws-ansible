@@ -1,0 +1,5 @@
+# Remove some files
+*.pem
+ssm.py
+ansible/
+lambda/

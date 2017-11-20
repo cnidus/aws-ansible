@@ -1,0 +1,46 @@
+- name: run commands on host
+  hosts: all
+  strategy: linear
+  # goal: execute the playbook step by step across at most 100 machines at a time (to cap the amount of memory
+  # spent on caching SSH connections)
+  # Right now disabled, because the ansible semantics here are gradual rollout. Hence, if the batch fails,
+  # ansible aborts. However, this is not what we want for Cerebro: we want to go over the whole project.
+  # example of problems:
+  # - no execute permissions on GKE nodes
+  # - no propagation of SSH keys on snapengine nodes
+#  serial: 100
+
+  tasks:
+
+  - name: get osquery on the box
+     become: true
+     copy:
+      src: osqueryi
+      dest: /home/cerebro/osqueryi
+      mode: 0711
+
+  - name: get the deb packages query over
+     become: true
+     copy:
+      src: query_deb_packages
+      dest: /home/cerebro/query_deb_packages
+      mode: 0711
+
+- name: get the deb packages locally installed
+     become: true
+     shell: /home/cerebro/osqueryi --json < /home/cerebro/query_deb_packages > /home/cerebro/deb_packages.json
+     args:
+      executable: /bin/bash
+
+ - name: make the host directory
+     file:
+       path: data/{{ gce_project }}/zones/{{ gce_zone }}/instances/{{ gce_name }}
+       state: directory
+       mode: 0755
+       recurse: yes
+
+   - name: get the deb output back here
+     fetch:
+      src: /home/cerebro/deb_packages.json
+      dest: data/{{ gce_project }}/zones/{{ gce_zone }}/instances/{{ gce_name }}/deb_packages.json
+      flat: yes

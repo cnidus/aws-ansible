@@ -1,0 +1,17 @@
+---
+- hosts: all
+  tasks:
+    - name: List yum packages and register result to output later.
+      yum:
+        list: "*boto*"
+      register: yum_packages
+
+
+    - name: Write pkg list to file
+      copy: content=yum_packages dest=~/yum_packages.txt
+
+    - name: Put pkgs on s3
+      s3: bucket=snap-ansible-testing object=/yum_packages.txt src=~/yum_packages.txt mode=put
+
+    - debug:
+        var: yum_packages
