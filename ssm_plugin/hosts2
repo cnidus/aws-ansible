@@ -1,0 +1,19 @@
+# file: hosts
+
+all:
+  hosts:
+    master:
+      ec2_instance_id: i-00c83ab26071b1ec4
+      ansible_python_interpreter: /usr/bin/python
+      ansible_connection=ssm
+      ec2_region=us-east-1
+    host2:
+      ec2_instance_id: i-0f292ec64553a334e
+      ansible_python_interpreter: /usr/bin/python
+      ansible_connection=ssm
+      ec2_region=us-east-1
+    host3:
+      ec2_instance_id: i-003db512f0a358e1d
+      ansible_python_interpreter: /usr/bin/python
+      ansible_connection=ssm
+      ec2_region=us-east-1

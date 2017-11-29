@@ -1,0 +1,5 @@
+all:
+  hosts:
+    34.238.126.52:
+      ec2_instance_id: i-03be86148a0b69842 
+      ansible_python_interpreter: /usr/bin/python

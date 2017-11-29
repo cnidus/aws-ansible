@@ -6,4 +6,6 @@
 
   http://docs.aws.amazon.com/systems-manager/latest/userguide/rc-sns-notifications.html
 
+  https://viewsby.wordpress.com/2014/11/25/ansible-disable-gather-facts/
+
 ansible-playbook -i "localhost," -c local get_yumlist.yml

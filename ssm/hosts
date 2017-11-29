@@ -1,9 +1,0 @@
-# file: hosts
-[ssm]
-master ec2_id=i-00c83ab26071b1ec4
-host2 ec2_id=i-0f292ec64553a334e
-host3 ec2_id=i-003db512f0a358e1d
-
-[ssm:vars]
-ansible_connection=ssm
-ec2_region=us-east-1

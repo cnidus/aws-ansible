@@ -1,0 +1,10 @@
+---
+- hosts: all
+  gather_facts: False
+  tasks:
+    - name: List yum packages and register result to output later.
+      command: yum list *boto*
+      register: yum_packages
+
+    - debug:
+        var: yum_packages

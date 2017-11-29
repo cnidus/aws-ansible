@@ -1,7 +1,0 @@
-aws ssm send-command --instance-ids "i-0cb2b964d3e14fd9f" --document-name "AWS-RunShellScript" --comment "IP config" --parameters "commands=ifconfig" --output text
-
-
-aws ssm send-command --document-name "AWS-RunAnsiblePlaybook" --parameters '{"playbookurl":["s3://snap-ansible-testing/get_yumlist.yml"],"extravars":["SSM=True"],"check":["False"]}' --timeout-seconds 600 --region us-east-1
-
-
-aws ssm send-command --document-name "AWS-RunAnsiblePlaybook" --instance-ids "i-00c83ab26071b1ec4" "i-003db512f0a358e1d" --max-concurrency "2" --max-errors "1" --parameters '{"extravars":["SSM=True"],"check":["False"],"playbookurl":["s3://snap-ansible-testing/get_yumlist.yml"]}' --timeout-seconds 600 --region us-east-1 --output-s3-bucket-name "snap-ansible-testing"
