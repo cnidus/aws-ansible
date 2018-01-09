@@ -13,14 +13,21 @@ BUCKET_NAME = "snap-ansible-testing"
 app = Chalice(app_name='CheckPatchStatus')
 
 
-@app.route('/GetSecurityBulletins')
-def GetSecurityBulletins():
+@app.route('/GetRSSSecurityBulletins')
+def GetRSSSecurityBulletins():
     response = urllib2.urlopen(URL)
     data = json.loads(response.read())
 
     print data
 
     return data['items']
+
+@app.route('/GetXMLSecurityBulletins')
+def GetXMLSecurityBulletins():
+
+
+    return
+
 
 @app.route('/GetInstancePatches/{InstanceID}', methods=['GET'])
 def GetInstancePatches(InstanceID):

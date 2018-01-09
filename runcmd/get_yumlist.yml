@@ -1,0 +1,26 @@
+---
+- hosts: all
+  tasks:
+    - name: List yum packages and register result to output later.
+      yum:
+        list: "*boto*"
+      register: yum_packages
+
+    - name: Write pkg list to a local file
+      copy: content={{ yum_packages }} dest="~/yum_packages.json"
+      become: true
+      become_user: ec2-user
+
+    - name: Get the AWS InstanceId
+      uri:
+        url: http://169.254.169.254/latest/meta-data/instance-id
+        return_content: yes
+      register: InstanceID
+
+    - name: Put pkg list on s3
+      aws_s3: bucket=snap-ansible-testing object=/ssm/{{ InstanceID.content }}_yum_pkgs.json src="/home/ec2-user/yum_packages.json" mode=put
+      become: true
+      become_user: ec2-user
+
+    # - debug:
+    #     var: yum_packages

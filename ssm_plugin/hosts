@@ -1,8 +1,8 @@
 # file: hosts
 [ssm]
-master ec2_instance_id=i-00c83ab26071b1ec4 ansible_python_interpreter=/usr/bin/python
-host2 ec2_instance_id=i-0f292ec64553a334e ansible_python_interpreter=/usr/bin/python
-host3 ec2_instance_id=i-003db512f0a358e1d ansible_python_interpreter=/usr/bin/python
+host1 ec2_instance_id=i-03a9ff4db1e58da23 ansible_python_interpreter=/usr/bin/python
+host2 ec2_instance_id=i-080feed63350968ce ansible_python_interpreter=/usr/bin/python
+host3 ec2_instance_id=i-081c9adff8f0cde0d ansible_python_interpreter=/usr/bin/python
 
 [ssm:vars]
 ansible_connection=ssm
